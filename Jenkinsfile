@@ -4,12 +4,15 @@ pipeline {
             label "maven"
         }
     }
+    environment {
+        PATH = "/opt/maven/bin:$PATH"
+    }
 
 
     stages {
-        stage('git clone') {
+        stage('build') {
             steps {
-                git branch: 'main', url: 'https://github.com/devopssteps/java-webiste-only.git'
+                sh 'mvn clean deploy' //-Dmaven.test.skip=true
             }
         }
     }
